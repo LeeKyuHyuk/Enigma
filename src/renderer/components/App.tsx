@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import FriendTitle from './Friend/FriendTitle';
-import WebSocketServer from '../../core/WebSocketServer';
+import Friend from './Friend/Friend';
 
 const { Content } = Layout;
 
@@ -16,13 +16,13 @@ const AppContent = styled(Content)`
   background: #ffffff;
 `;
 
-WebSocketServer();
-
 function App() {
   return (
     <AppLayout>
       <FriendTitle />
-      <AppContent>main content</AppContent>
+      <AppContent>
+        <Friend />
+      </AppContent>
     </AppLayout>
   );
 }

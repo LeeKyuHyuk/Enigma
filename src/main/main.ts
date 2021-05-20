@@ -1,6 +1,9 @@
 import * as path from 'path';
 import * as url from 'url';
 import { BrowserWindow, app } from 'electron';
+import WebSocketServer from './core/WebSocketServer';
+
+require('@electron/remote/main').initialize();
 
 let mainWindow: Electron.BrowserWindow | null;
 
@@ -13,6 +16,9 @@ function createWindow(): void {
     height: 600,
     width: 350,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
       webSecurity: true,
       allowRunningInsecureContent: false,
       devTools: process.env.NODE_ENV !== 'production',
@@ -39,6 +45,8 @@ function createWindow(): void {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  WebSocketServer(mainWindow);
 }
 
 // This method will be called when Electron has finished
