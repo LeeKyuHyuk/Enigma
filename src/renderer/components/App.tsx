@@ -2,7 +2,9 @@ import * as React from 'react';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import FriendTitle from './Friend/FriendTitle';
-import Friend from './Friend/Friend';
+import FriendList from './Friend/FriendList';
+import { getFriendList, setFriendList } from './Friend/FriendListManagement';
+import { Friend } from '../../type/Friend';
 
 const { Content } = Layout;
 
@@ -17,11 +19,13 @@ const AppContent = styled(Content)`
 `;
 
 function App() {
+  const [friendData, setFriendData] = React.useState<Friend[]>(getFriendList());
+
   return (
     <AppLayout>
-      <FriendTitle />
+      <FriendTitle setFriendData={setFriendData} />
       <AppContent>
-        <Friend />
+        <FriendList friendData={friendData} />
       </AppContent>
     </AppLayout>
   );

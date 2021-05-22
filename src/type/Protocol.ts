@@ -1,0 +1,1 @@
+export const GET_USER_INFO = 'ENIGMA_GET_USER_INFO';

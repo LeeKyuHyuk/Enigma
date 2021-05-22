@@ -1,7 +1,8 @@
 import * as path from 'path';
 import * as url from 'url';
-import { BrowserWindow, app } from 'electron';
-import WebSocketServer from './core/WebSocketServer';
+import { BrowserWindow, app, ipcMain } from 'electron';
+import * as WebSocketServer from './core/WebSocketServer';
+import * as Protocol from '../type/Protocol';
 
 require('@electron/remote/main').initialize();
 
@@ -25,6 +26,8 @@ function createWindow(): void {
     },
   });
 
+  // mainWindow.setMenu(null);
+
   // and load the index.html of the app.
   mainWindow
     .loadURL(
@@ -46,7 +49,7 @@ function createWindow(): void {
     mainWindow = null;
   });
 
-  WebSocketServer(mainWindow);
+  WebSocketServer.default(mainWindow);
 }
 
 // This method will be called when Electron has finished
@@ -73,3 +76,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on(Protocol.GET_USER_INFO, WebSocketServer.getUserInfo);
